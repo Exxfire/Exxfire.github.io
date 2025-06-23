@@ -18,20 +18,109 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
+# Basic Site Information
 title: Exxfire's Blog
-email: 1009524027@qq.com
+subtitle: "分享技术，记录生活"
 description: >- # this means to ignore newlines until "baseurl:"
-  This is Exxfire's blog.
+  Exxfire的个人技术博客，分享编程技术、开发经验和生活感悟。
+  This is Exxfire's personal tech blog sharing programming knowledge, development experience and life insights.
+author: Exxfire
+email: 1009524027@qq.com
+language: zh-CN
+timezone: Asia/Shanghai
+
+# Site URL Configuration
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://exxfire.github.io" # the base hostname & protocol for your site
+
+# Social Media Links
+# twitter_username: Exxfire
+github_username: Exxfire
+
+# SEO and Meta Tags
+keywords: ["技术博客", "编程", "开发", "Jekyll", "GitHub Pages", "tech blog", "programming", "development"]
+author_bio: "热爱技术的程序员，专注于Web开发和人工智能"
+google_analytics: # UA-XXXXXXXXX-X
+google_analytics_gtag: # G-XXXXXXXXXX
+
+# Comments System
+disqus_shortname: # your-disqus-shortname
+utterances:
+  repo: Exxfire/exxfire.github.io
+  issue_term: pathname
+  theme: github-light
 
 # Build settings
 theme: minima
+# theme: plainwhite
+
+# Plugins
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-archives
+
+# Remote Theme
 remote_theme: PandaSekh/Jekyll-YAMT
+
+# Pagination
+paginate: 5
+paginate_path: "/page/:num/"
+
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: archive-category
+    tag: archive-tag
+  permalinks:
+    category: '/category/:name/'
+    tag: '/tag/:name/'
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+# Defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Exxfire"
+      comments: true
+      share: true
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+      author: "Exxfire"
+
+# Markdown Settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+      start_line: 1
+
+# Sass Settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -40,14 +129,43 @@ remote_theme: PandaSekh/Jekyll-YAMT
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .git/
+  - .gitignore
+  - README.md
+  - LICENSE
+  - .editorconfig
+  - .travis.yml
+  - .github/
+
+# Include files that would otherwise be excluded
+include:
+  - _pages
+  - _data
+
+# Custom Variables
+show_excerpts: true
+show_post_meta: true
+show_related_posts: true
+show_reading_time: true
+show_social_share: true
+
+# Footer Settings
+footer_text: "© 2024 Exxfire. All rights reserved."
+footer_links:
+  - name: "GitHub"
+    url: "https://github.com/Exxfire"
+  - name: "Email"
+    url: "mailto:1009524027@qq.com"
+  - name: "RSS"
+    url: "/feed.xml"
