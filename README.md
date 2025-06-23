@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/Exxfire/exxfire.github.io/workflows/Build%20and%20Deploy/badge.svg)](https://github.com/Exxfire/exxfire.github.io/actions)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Exxfire.github.io-blue.svg)](https://exxfire.github.io)
-[![Jekyll](https://img.shields.io/badge/Jekyll-4.2+-red.svg)](https://jekyllrb.com/)
+[![Jekyll](https://img.shields.io/badge/Jekyll-4.4.1-red.svg)](https://jekyllrb.com/)
 
 ## 📝 关于
 
@@ -13,7 +13,7 @@
 ## ✨ 功能特性
 
 - 📱 响应式设计，支持移动端
-- 🎨 现代化UI设计
+- 🎨 现代化UI设计，自定义样式
 - 🔍 SEO优化
 - 📊 支持Google Analytics
 - 💬 支持评论系统（Disqus/GitHub Discussions）
@@ -23,12 +23,14 @@
 - 📄 分页功能
 - 📂 归档页面
 - 📡 RSS订阅
+- 🚀 GitHub Actions自动部署
+- 🎯 自定义布局和主题
 
 ## 🛠️ 技术栈
 
-- **静态站点生成器**: Jekyll 4.2+
-- **主题**: Minima + Jekyll-YAMT
-- **部署**: GitHub Pages
+- **静态站点生成器**: Jekyll 4.4.1
+- **主题**: Minima 2.5 + 自定义样式
+- **部署**: GitHub Pages + GitHub Actions
 - **评论系统**: Disqus / GitHub Discussions
 - **分析工具**: Google Analytics
 - **CDN**: GitHub Pages CDN
@@ -37,7 +39,7 @@
 
 ### 环境要求
 
-- Ruby 2.6.0 或更高版本
+- Ruby 3.2+ 或更高版本
 - RubyGems
 - GCC 和 Make
 
@@ -76,24 +78,37 @@ bundle exec jekyll build --profile
 
 # 清理缓存
 bundle exec jekyll clean
+
+# 添加Linux平台支持（用于GitHub Actions）
+bundle lock --add-platform x86_64-linux
 ```
 
 ## 📁 项目结构
 
 ```
 exxfire.github.io/
-├── _config.yml          # Jekyll配置文件
-├── _posts/              # 博客文章
-├── _pages/              # 静态页面
-├── _data/               # 数据文件
-├── _layouts/            # 布局模板
-├── _includes/           # 包含文件
-├── _sass/               # Sass样式文件
-├── assets/              # 静态资源
-├── images/              # 图片文件
-├── Gemfile              # Ruby依赖
-├── README.md            # 项目说明
-└── index.markdown       # 首页
+├── _config.yml              # Jekyll配置文件
+├── _layouts/                # 自定义布局文件
+│   ├── default.html         # 默认布局
+│   ├── page.html            # 页面布局
+│   ├── post.html            # 文章布局
+│   └── home.html            # 首页布局
+├── _posts/                  # 博客文章
+├── _data/                   # 数据文件
+│   └── navigation.yml       # 导航配置
+├── assets/                  # 静态资源
+│   └── main.scss            # 自定义样式文件
+├── .github/                 # GitHub配置
+│   └── workflows/           # GitHub Actions工作流
+│       └── jekyll.yml       # 自动部署配置
+├── _404.html               # 404错误页面
+├── about.markdown          # 关于页面
+├── index.markdown          # 首页
+├── Gemfile                 # Ruby依赖
+├── Gemfile.lock            # 依赖锁定文件
+├── README.md               # 项目说明
+├── LICENSE                 # 许可证文件
+└── .gitignore              # Git忽略文件
 ```
 
 ## 📝 写作指南
@@ -127,11 +142,24 @@ share: true
 
 ## 🎨 自定义主题
 
-### 修改样式
+### 样式自定义
 
-1. 在 `_sass/` 目录下创建自定义样式文件
-2. 在 `assets/css/` 目录下创建主样式文件
-3. 在 `_config.yml` 中配置Sass选项
+项目使用自定义的SCSS样式文件 `assets/main.scss`，包含：
+
+- 响应式布局设计
+- 现代化UI组件
+- 自定义颜色方案
+- 移动端优化
+- 动画效果
+
+### 布局自定义
+
+在 `_layouts/` 目录下包含以下自定义布局：
+
+- `default.html` - 基础布局模板
+- `page.html` - 静态页面布局
+- `post.html` - 文章页面布局
+- `home.html` - 首页布局
 
 ### 添加新页面
 
@@ -163,22 +191,64 @@ permalink: /page-url/
 - `jekyll-feed`: RSS订阅
 - `jekyll-seo-tag`: SEO优化
 - `jekyll-sitemap`: 站点地图
-- `jekyll-paginate`: 分页功能
-- `jekyll-archives`: 归档功能
+
+### 自定义配置
+
+- `show_excerpts`: 显示文章摘要
+- `show_post_meta`: 显示文章元信息
+- `show_related_posts`: 显示相关文章
+- `show_reading_time`: 显示阅读时间
+- `show_social_share`: 显示社交分享
 
 ## 📊 部署
 
 ### GitHub Pages
 
+项目使用GitHub Actions进行自动部署：
+
 1. 推送代码到GitHub
-2. 在仓库设置中启用GitHub Pages
-3. 选择部署分支（通常是 `main` 或 `gh-pages`）
+2. GitHub Actions自动构建和部署
+3. 部署到GitHub Pages
+
+### GitHub Actions工作流
+
+`.github/workflows/jekyll.yml` 包含：
+
+- 自动构建Jekyll站点
+- 部署到GitHub Pages
+- 支持多平台构建（Windows/Linux）
 
 ### 自定义域名
 
 1. 在 `_config.yml` 中设置 `url`
 2. 在GitHub Pages设置中添加自定义域名
 3. 创建 `CNAME` 文件
+
+## 🐛 故障排除
+
+### 常见问题
+
+1. **平台兼容性问题**
+   ```bash
+   bundle lock --add-platform x86_64-linux
+   ```
+
+2. **依赖安装问题**
+   ```bash
+   bundle install --path vendor/bundle
+   ```
+
+3. **构建错误**
+   ```bash
+   bundle exec jekyll clean
+   bundle exec jekyll build
+   ```
+
+### 调试技巧
+
+- 使用 `--verbose` 参数查看详细错误信息
+- 检查 `_site` 目录的生成内容
+- 查看浏览器开发者工具的网络和控制台
 
 ## 🤝 贡献
 
@@ -204,8 +274,23 @@ permalink: /page-url/
 
 - [Jekyll](https://jekyllrb.com/) - 静态站点生成器
 - [Minima](https://github.com/jekyll/minima) - Jekyll默认主题
-- [Jekyll-YAMT](https://github.com/PandaSekh/Jekyll-YAMT) - 现代化主题
 - [GitHub Pages](https://pages.github.com/) - 免费托管服务
+- [GitHub Actions](https://github.com/features/actions) - 自动化部署
+
+## 📈 更新日志
+
+### v2.0.0 (2024-06-23)
+- ✨ 添加自定义布局文件
+- 🎨 实现响应式设计
+- 🚀 集成GitHub Actions自动部署
+- 📱 优化移动端体验
+- 🔧 修复GitHub Pages兼容性问题
+
+### v1.0.0 (2024-06-23)
+- 🎉 初始版本发布
+- 📝 基础博客功能
+- 📚 文章管理系统
+- 🔍 SEO优化
 
 ---
 
