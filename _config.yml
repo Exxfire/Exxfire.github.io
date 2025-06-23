@@ -51,35 +51,35 @@ utterances:
   theme: github-light
 
 # Build settings
-theme: minima
+theme: minima  # 重新启用本地主题
 # theme: plainwhite
 
-# Plugins
+# Remote Theme - 注释掉，使用本地主题
+# remote_theme: jekyll/minima
+
+# Plugins - 只保留GitHub Pages支持的插件
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-paginate
-  - jekyll-archives
+  # - jekyll-paginate  # GitHub Pages不支持
+  # - jekyll-archives  # GitHub Pages不支持
 
-# Remote Theme
-remote_theme: PandaSekh/Jekyll-YAMT
+# Pagination - GitHub Pages不支持，注释掉
+# paginate: 5
+# paginate_path: "/page/:num/"
 
-# Pagination
-paginate: 5
-paginate_path: "/page/:num/"
-
-# Archives
-jekyll-archives:
-  enabled:
-    - categories
-    - tags
-  layouts:
-    category: archive-category
-    tag: archive-tag
-  permalinks:
-    category: '/category/:name/'
-    tag: '/tag/:name/'
+# Archives - GitHub Pages不支持，注释掉
+# jekyll-archives:
+#   enabled:
+#     - categories
+#     - tags
+#   layouts:
+#     category: archive-category
+#     tag: archive-tag
+#   permalinks:
+#     category: '/category/:name/'
+#     tag: '/tag/:name/'
 
 # Collections
 collections:
